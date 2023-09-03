@@ -1,0 +1,45 @@
+@import '../../style/variables.scss';
+
+.app {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 5rem;
+    }
+
+    &__title {
+
+        font-size: 2.8rem;
+        color: black;
+
+        span {
+            color: $main-color;
+        }
+    }
+
+    &__menu {
+
+        font-size: 2.4rem;
+        font-weight: 700;
+
+        ul {
+            display: flex;
+            justify-content: space-between;
+            width: 20.1rem;
+
+            li {
+
+                a {
+                    color: black;
+                    transition: color .1s linear;
+
+                    &:hover {
+                        color: $main-color
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,76 @@
+@import '../../style/variables.scss';
+
+.char {
+    &__info {
+        max-width: 42.5rem;
+        width: 100%;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+
+        box-shadow: 0 0 2rem rgba($color: #000000, $alpha: .25);
+        background-color: #fff;
+
+        &-name {
+            font-size: 2.2rem;
+             text-transform: uppercase;
+         }
+    }
+
+    &__basics {
+        display: grid;
+        grid-template-columns: 15rem auto;
+        column-gap: 2.5rem;
+
+        margin-bottom: 1.5rem;
+
+        img {
+            height: 15rem;
+            max-width: 15rem;
+            width: auto;
+            object-fit: cover;
+        }
+
+    }
+
+    &__btns {
+        margin-top: 3.5rem;
+
+        a:nth-child(2) {
+            margin-top: 1rem;
+        }
+    }
+
+    &__desc {
+        font-size: 1.4rem;
+
+        margin-bottom: 2.5rem;
+    }
+
+    &__comics {
+        font-size: 1.8rem;
+
+        &-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-item {
+            display: block;
+            width: 100%;
+            padding: .5rem 0 .5rem 1rem;
+            margin-top: 1rem;
+
+            font-size: 1.4rem;
+            box-shadow: 0 .4rem .4rem rgba($color: #000000, $alpha: .25);
+            cursor: pointer;
+        }
+    }
+
+    &__select {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+    }
+
+}

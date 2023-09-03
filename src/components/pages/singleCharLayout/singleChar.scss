@@ -1,0 +1,36 @@
+@import '../../../style/variables.scss';
+
+.single-char {
+    display: grid;
+    grid-template-columns: 29.3rem 55rem auto;
+    column-gap: 5rem;
+    align-items: start;
+
+    &__img {
+        width: 29.3rem;
+        height: 29.3rem;
+    }
+
+    &__name {
+        font-size: 2.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+
+        margin-bottom: 2.5rem;
+    }
+
+    &__descr {
+        font-size: 1.8rem;
+    }
+
+    &__back {
+        justify-self: end;
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 2.4rem;
+
+        &:hover {
+            color: $main-color;
+        }
+    }
+}

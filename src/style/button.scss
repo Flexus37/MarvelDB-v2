@@ -1,0 +1,95 @@
+@import './variables.scss';
+
+.button {
+    min-width: 10.1rem;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    transition: 0.3s transform;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    &__long {
+        display: block;
+        width: 17rem;
+        margin: 4.5rem auto 0 auto;
+    }
+    .inner {
+        position: relative;
+        background-color: $main-color;
+        line-height: 1.8rem;
+        padding: 0 1.8rem;
+        transition: none;
+        &::before {
+            border-color: $main-color transparent;
+            border-style: solid;
+            border-width: 0 0 1.1rem 1.1rem;
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            top: -1rem;
+            transition: none;
+        }
+        &::after {
+            border-color: $main-color transparent;
+            border-style: solid;
+            border-width: 0 0 1.1rem 1.1rem;
+            content: "";
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: -1rem;
+            transform: rotate(180deg);
+            transition: none;
+        }
+    }
+    &__main, &__secondary {
+        &:hover {
+            color: #fff;
+        }
+    }
+    &__secondary {
+        .inner {
+            background-color: $grey;
+            &::before {
+                border-color: $grey transparent;
+                transition: none;
+            }
+            &::after {
+                border-color: $grey transparent;
+                transition: none;
+            }
+        }
+    }
+    &::before {
+        content: '';
+        display: block;
+        height: 1rem;
+        margin-left: 1rem;
+        transition: none;
+
+    }
+    &::after {
+        content: '';
+        display: block;
+        height: 1rem;
+        margin-right: 1rem;
+        transition: none;
+
+    }
+    &.button__main::before, &.button__main::after {
+        background-color: $main-color;
+    }
+    &.button__secondary::before, &.button__secondary::after {
+        background-color: $grey;
+    }
+    &:hover {
+        transform: translateY(-.5rem);
+    }
+
+    &:disabled {
+        filter: grayscale(.5);
+    }
+}

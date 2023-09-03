@@ -1,0 +1,42 @@
+@import '../../../style/variables.scss';
+
+.single-comic {
+    display: grid;
+    grid-template-columns: 29.3rem 55rem auto;
+    column-gap: 5rem;
+    align-items: start;
+
+    &__img {
+        width: 29.3rem;
+        height: 45rem;
+    }
+
+    &__title {
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    &__descr {
+        font-size: 1.8rem;
+        margin-top: 2.5rem;
+    }
+
+    &__price {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: $main-color;
+
+        margin-top: 2.5rem;
+    }
+
+    &__back {
+        justify-self: end;
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 2.4rem;
+
+        &:hover {
+            color: $main-color;
+        }
+    }
+}

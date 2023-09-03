@@ -1,0 +1,124 @@
+@import '../../style/variables.scss';
+
+.randomchar {
+    // display: flex;
+
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    align-items: center;
+    box-shadow: .5rem .5rem 2rem rgba($color: #000000, $alpha: .25);
+
+    margin-bottom: 5rem;
+
+    &__block {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 25rem;
+
+        padding: 3.5rem;
+
+        &-enter {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        &-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+        }
+
+        &-exit {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        &-exit-active {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+        }
+    }
+
+    &__img {
+        display: block;
+        height: 18rem;
+        width: 18rem;
+        object-fit: cover;
+    }
+
+    &__info {
+        display: flex;
+        max-width: 26.5rem;
+        width: 100%;
+        margin-left: 3rem;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__name {
+        font-size: 2.2rem;
+        text-transform: uppercase;
+
+        padding-bottom: 1rem;
+    }
+
+    &__desc {
+        display: block;
+        height: 10.4rem;
+        font-size: 1.4rem;
+
+        padding-bottom: 2rem;
+    }
+
+    &__btns {
+        a {
+            margin-right: 3rem;
+        }
+    }
+
+    &__static {
+        width: 100%;
+        height: 25rem;
+        position: relative;
+
+        background-color: $dark;
+        padding: 3.5rem;
+    }
+
+    &__title, &__subtitle {
+        font-size: 2.4rem;
+        color: #fff;
+    }
+
+    &__title {
+        margin-bottom: 4.1rem;
+    }
+
+    &__subtitle {
+        margin-bottom: 1.3rem;
+    }
+
+    &__decoration {
+        position: absolute;
+
+        right: -4rem;
+        bottom: 1.4rem;
+        z-index: 2;
+    }
+
+
+
+}
+
+
+// 104px max height
+
+
+
+
+
+
+
