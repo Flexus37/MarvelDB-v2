@@ -1,11 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import useMarvelService from '../../services/MarvelService';
-import PropTypes from 'prop-types'
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import PropTypes from 'prop-types';
+// import { motion } from 'framer-motion';
 
-import Spinner from '../spinner/Spinner'
-import ErrorMessage from '../errorMessage/ErrorMessage'
-import './charList.scss'
+import './charList.scss';
+import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+
+const setContent = (process, Component, newItemLoading) => {
+    switch(process) {
+        case 'waiting':
+            return <Spinner/>;
+        case 'loading':
+            return newItemLoading ? <Component/> : <Spinner/>;
+        case 'confirmed':
+            return <Component/>;
+        case 'error':
+            return <ErrorMessage/>
+        default:
+            throw new Error('Unexpected process state');
+    }
+}
 
 const CharList = (props) => {
 
@@ -14,16 +29,18 @@ const CharList = (props) => {
     const [offset, setOffset] = useState(210);
     const [charEnded, setCharEnded] = useState(false);
 
-    const {loading, error, getAllCharacters} = useMarvelService();
+    const {getAllCharacters, process, setProcess} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
+        // eslint-disable-next-line
     }, [])
 
     const onRequest = (offset, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllCharacters(offset)
             .then(onCharListLoaded)
+            .then(() => setProcess('confirmed'));
     }
 
     // Зависит от предыдущего состояния
@@ -46,55 +63,50 @@ const CharList = (props) => {
         charRefs.current[id].classList.add('selected');
     }
 
-    function renderCharList(arr) {
+    const renderCharList = arr => {
         const items = arr.map((item, i) => {
             let imgStyle = {'objectFit': 'cover'};
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit': 'unset'};
             }
             return (
-                <CSSTransition key={item.id} timeout={300} classNames="char__item">
-                    <li
-                        className="char__item"
-                        ref={el => charRefs.current[i] = el}
-                        key={item.id}
-                        tabIndex={0}
-                        onClick={() => {
+                <li
+                    className="char__item"
+                    ref={el => charRefs.current[i] = el}
+                    key={item.id}
+                    tabIndex={0}
+                    onClick={() => {
+                        props.onCharSelected(item.id);
+                        focusChar(i);
+                    }}
+                    onKeyDown={(e) => {
+                        if (e.key === ' ' || e.key === 'Enter') {
                             props.onCharSelected(item.id);
                             focusChar(i);
-                        }}
-                        onKeyDown={(e) => {
-                            if (e.key === ' ' || e.key === 'Enter') {
-                                props.onCharSelected(item.id);
-                                focusChar(i);
-                            }
-                        }}>
-                            <img className='char__img' src={item.thumbnail} alt={item.name} style={imgStyle} />
-                            <h1 className="char__name">{item.name}</h1>
-                    </li>
-                </CSSTransition>
+                        }
+                    }}
+                    >
+                        <img className='char__img' src={item.thumbnail} alt={item.name} style={imgStyle} />
+                        <h1 className="char__name">{item.name}</h1>
+                </li>
 
             )
         });
         return (
             <ul className="char__grid">
-                <TransitionGroup component={null}>
-                    {items}
-                </TransitionGroup>
+                {items}
             </ul>
         )
     }
 
-    const items = renderCharList(charList);
-
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading && !newItemLoading ? <Spinner style={{'min-height': '101.4rem'}} /> : null;
+    const elements = useMemo(() => {
+        return setContent(process, () => renderCharList(charList), newItemLoading);
+        // eslint-disable-next-line
+    }, [process]);
 
     return (
         <div className="char__list">
-            {errorMessage}
-            {spinner}
-            {items}
+            {elements}
             <button
                 className='button button__main button__long'
                 disabled={newItemLoading}
